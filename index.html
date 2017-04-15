@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Todos</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/material-kit.css">
+    <link rel="stylesheet" href="css/custom.css" >
+</head>
+
+<body>
+    <div class="container todo-app">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="card todo-card">
+                    <div class="header header-primary text-center card-header">
+                        <h1>Todos</h1>
+                    </div>
+                    <div class="content">
+                        <div id="app">
+                            <form @submit.prevent="addTodo">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">What needs to be done?</label>
+                                    <input name=todo" type="text" v-model="todo.item" class="form-control">
+                                </div>
+                            </form>
+                            <div class="hidden-md hidden-lg text-center">
+                                <button @click="addTodo" class="btn btn-default btn-round btn-sm"><i class="fa fa-plus"></i>&nbsp;Add Item</button>
+                            </div>
+                            <ul class="list-group">
+                                <li v-for="todo, index in todos" v-if="todo.isVisible" class="list-group-item clearfix">
+                                    <span @click="isComplete(index)" class="btn btn-xs" v-bind:class="{'btn-success' : todo.isComplete}">
+                                        <span class="glyphicon glyphicon-ok"></span>
+                                    </span>
+                                    <span v-bind:class="{'todo-complete' :todo.isComplete}">{{ todo.item }}</span>
+                                    <span @click="removeTodo(index)" class="btn btn-xs btn-danger pull-right">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </span>
+                                </li>
+                            </ul>
+                            <div class="footer text-center">
+                                <span class="label label-info">{{ stillTodo }}</span> items left
+                                <button @click="isVisible('all')" class="btn btn-simple btn-danger btn-md">All<div class="ripple-container"></div></button>
+                                <button @click="isVisible('active')" class="btn btn-simple btn-warning btn-md">Active<div class="ripple-container"></div></button>
+                                <button @click="isVisible('completed')" class="btn btn-simple btn-success btn-md">Completed<div class="ripple-container"></div></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="social-line text-center">
+                    <a href="https://www.twitter.com/rick_west8" class="btn btn-simple btn-just-icon" target="_blank">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+                    <a href="https://github.com/rickwest/todoList" class="btn btn-simple btn-just-icon" target="_blank">
+                        <i class="fa fa-github"></i>
+                    </a>
+                    <p>Built with <i class="fa fa-heart"></i> and <i class="fa fa-coffee"></i> by <a href="http://rickwest.co.uk" target="_blank">Rick</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script src="js/app.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/material.min.js"></script>
+    <script>$(document).ready(function() {$.material.init()})</script>
+</body>
+</html>
